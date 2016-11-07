@@ -1,0 +1,58 @@
+/**
+ * Created by s168945 on 18-10-2016.
+ */
+public class CircularPrimers {
+
+    boolean isPrime(int n) {
+        for (int i = 2; i <= n / 2; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int largestPowerOfTen(int n) {
+        int power = 0;
+        int i = 10;
+        while (n / i != 0) {
+            i = i * 10;
+            power++;
+        }
+        return (int) Math.pow(10, power);
+    }
+
+    boolean CircularPrime(int n) {
+        int powerTen = 1;
+        int newNumber = 0;
+        int remainder = n;
+
+        //while(powerTen<=largestPowerOfTen(n)) {
+
+        while (largestPowerOfTen(remainder) != 0) {
+            newNumber = newNumber + (remainder / largestPowerOfTen(remainder)) * powerTen;
+            remainder = remainder % largestPowerOfTen(remainder);
+            powerTen = powerTen * 10;
+        }
+        newNumber = newNumber + remainder;
+
+        if (isPrime(n) && isPrime(newNumber)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    void run() {
+        for (int i = 1; i <= 1000; i++) {
+            if (CircularPrime(i)) {
+                System.out.println(i);
+                System.out.println("haha");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new CircularPrimers().run();
+    }
+}
